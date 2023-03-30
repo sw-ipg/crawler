@@ -1,0 +1,8 @@
+{
+  "server_port": 8083,
+  "kafka_brokers_list": ["kafka:9092"],
+  "kafka_urls_topic": "urls",
+  "kafka_results_topic": "docs",
+  "kafka_consumer_group_id": "gocrawler",
+  "postgres_connection_string": "postgres://crawler:awesomePassword@postgres/crawler?sslmode=disable"
+}
