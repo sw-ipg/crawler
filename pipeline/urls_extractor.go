@@ -18,6 +18,7 @@ func ExtractUrlsPipeFunc(next CrawlPipe) CrawlPipeFunc {
 			return failCrawlResult(), fmt.Errorf("cannot get document from html: %w", err)
 		}
 
+		taskPath, _ := url.Parse(task.PathToDiscover)
 		doc.Find("a").Each(func(i int, selection *goquery.Selection) {
 			href, ok := selection.Attr("href")
 			if !ok {
@@ -30,6 +31,10 @@ func ExtractUrlsPipeFunc(next CrawlPipe) CrawlPipeFunc {
 				return
 			} else {
 				hostname = u.Hostname()
+			}
+
+			if hostname != taskPath.Hostname() { // only internal links
+				return
 			}
 
 			if err = ctx.workItemsWriter.WriteJSON(
