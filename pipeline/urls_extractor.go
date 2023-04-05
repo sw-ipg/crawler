@@ -25,6 +25,10 @@ func ExtractUrlsPipeFunc(next CrawlPipe) CrawlPipeFunc {
 				return
 			}
 
+			if href == "" {
+				return
+			}
+
 			if []rune(href)[0] == '/' {
 				href = taskPath.Hostname() + href
 			}
