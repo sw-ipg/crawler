@@ -25,6 +25,10 @@ func ExtractUrlsPipeFunc(next CrawlPipe) CrawlPipeFunc {
 				return
 			}
 
+			if []rune(href)[0] == '/' {
+				href = taskPath.Hostname() + href
+			}
+
 			var hostname string
 			if u, err := url.Parse(href); err != nil {
 				log.Printf("ERROR: invalid URL: %s", err)
